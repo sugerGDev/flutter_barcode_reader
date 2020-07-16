@@ -4,12 +4,6 @@ import 'package:flutter/services.dart';
 
 
 
-/**
- [OUT] 处理个推Nav-返回的消息
- * KEY: scanner_result_key  VALUE: String
- * KEY: input_key           VALUE: bool
- * KEY: history_key         VALUE: bool
- */
 typedef void hand_barcode_scanner_callback(Object event);
 
 /// Barcode scanner plugin
@@ -30,22 +24,19 @@ class BarcodeScanner {
   /// Can throw an exception.
   /// See also [CameraAccessDenied] and [UserCanceled]
   /**
-   [IN] KEY：button_key   VALUE:int(  0 无， 1 手动， 2，历史， 3， 显示全部)
+   [IN] KEY：button_key   VALUE:int(0 无， 1 手动， 2，历史， 3， 显示全部)
       返回事件ID
    */
-  static Future<EventChannel> scan(Map<String,int> param,
-      hand_barcode_scanner_callback onSuccessCallBack,
-      hand_barcode_scanner_callback onErrorCallBack) async{
 
-     final String scannerEventId =  await _channel.invokeMethod('scan',param);
-     final EventChannel eventChannel = EventChannel(scannerEventId);
 
-     eventChannel
-         .receiveBroadcastStream()
-         .listen(onSuccessCallBack, onError: onErrorCallBack);
-
-     return eventChannel;
-
+  /**
+   * 在原来的基础上增加
+      [OUT] 处理个推Nav-返回的消息
+   * CODE: input_key           // 是否显点击输入按钮
+   * CODE: history_key         // 是否是点击历史按钮
+   */
+  static Future<String> scan(Map<String,int> param) async{
+    return await _channel.invokeMethod('scan',param);
   }
 
 }

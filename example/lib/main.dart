@@ -45,8 +45,13 @@ class _MyAppState extends State<MyApp> {
 
   Future scan() async {
     try {
-      String barcode = await BarcodeScanner.scan();
+      // 传递参数
+      final Map<String,int> param = Map();
+      param['button_key'] = 3; //0 无， 1 手动， 2，历史， 3， 显示全部
+
+      barcode  =  await BarcodeScanner.scan(param);
       setState(() => this.barcode = barcode);
+
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
         setState(() {
