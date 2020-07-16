@@ -5,4 +5,5 @@
   
   - (void) startAnimating;
   - (void) stopAnimating;
+- (CGRect)scanRect;
 @end

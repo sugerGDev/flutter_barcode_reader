@@ -11,10 +11,12 @@
 
 @interface BarcodeScannerViewController : UIViewController
 @property(nonatomic, retain) UIView *previewView;
-  @property(nonatomic, retain) ScannerOverlay *scanRect;
+@property(nonatomic, retain) ScannerOverlay *scanRect;
 @property(nonatomic, retain) MTBBarcodeScanner *scanner;
 @property(nonatomic, weak) id<BarcodeScannerViewControllerDelegate> delegate;
 
+@property (nonatomic, assign) NSInteger scanBottomBtnType;//0 无， 1 手动， 2，历史， 3， 显示全部)
   
-  -(id) initWithOptions:(NSDictionary *) options;
+//  -(id) initWithOptions:(NSDictionary *) options;
+
 @end

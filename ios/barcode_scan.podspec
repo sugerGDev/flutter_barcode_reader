@@ -17,5 +17,6 @@ A new flutter plugin project.
   s.dependency 'Flutter'
   s.dependency 'MTBBarcodeScanner'
   s.ios.deployment_target = '8.0'
+  s.resources = ['Classes/*.png']
 end
 

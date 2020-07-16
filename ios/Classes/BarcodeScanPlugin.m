@@ -13,24 +13,28 @@
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
     if ([@"scan" isEqualToString:call.method]) {
         self.result = result;
-        [self showBarcodeView];
+        [self showBarcodeViewWithCall:call];
     } else {
         result(FlutterMethodNotImplemented);
     }
 }
 
-- (void)showBarcodeView {
+- (void)showBarcodeViewWithCall:(FlutterMethodCall *)call {
     BarcodeScannerViewController *scannerViewController = [[BarcodeScannerViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:scannerViewController];
     if (@available(iOS 13.0, *)) {
         [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
     }
     scannerViewController.delegate = self;
+    if ([call.arguments isKindOfClass:[NSDictionary class]] && call.arguments[@"button_key"]) {
+        scannerViewController.scanBottomBtnType = [call.arguments[@"button_key"] integerValue];
+    }
+    
     [self.hostViewController presentViewController:navigationController animated:NO completion:nil];
 }
 - (void)barcodeScannerViewController:(BarcodeScannerViewController *)controller didScanBarcodeWithResult:(NSString *)result {
     if (self.result) {
-        self.result(result);
+        self.result(@{@"input_key":@(NO),@"history_key":@(NO),@"scanner_result_key":result});
     }
 }
 
@@ -42,4 +46,14 @@
     }
 }
 
+- (void)barcodeScannerViewController:(BarcodeScannerViewController *)controller didClickBottomBtnWithTag:(NSInteger)tag{
+    if (self.result) {
+        if (tag == 0) {
+            self.result(@{@"input_key":@(YES),@"history_key":@(NO),@"scanner_result_key":@""});
+        }else if (tag == 1) {
+            self.result(@{@"input_key":@(YES),@"history_key":@(YES),@"scanner_result_key":@""});
+        }
+        
+    }
+}
 @end
