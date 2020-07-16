@@ -2,6 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
+
+
+/**
+ [OUT] 处理个推Nav-返回的消息
+ * KEY: scanner_result_key  VALUE: String
+ * KEY: input_key           VALUE: bool
+ * KEY: history_key         VALUE: bool
+ */
+typedef void hand_barcode_scanner_callback(Object event);
+
 /// Barcode scanner plugin
 /// Simply call `var barcode = await BarcodeScanner.scan()` to scan a barcode
 class BarcodeScanner {
@@ -19,5 +29,23 @@ class BarcodeScanner {
   /// returns the barcode if one was scanned.
   /// Can throw an exception.
   /// See also [CameraAccessDenied] and [UserCanceled]
-  static Future<String> scan() async => await _channel.invokeMethod('scan');
+  /**
+   [IN] KEY：button_key   VALUE:int(  0 无， 1 手动， 2，历史， 3， 显示全部)
+      返回事件ID
+   */
+  static Future<EventChannel> scan(Map<String,int> param,
+      hand_barcode_scanner_callback onSuccessCallBack,
+      hand_barcode_scanner_callback onErrorCallBack) async{
+
+     final String scannerEventId =  await _channel.invokeMethod('scan',param);
+     final EventChannel eventChannel = EventChannel(scannerEventId);
+
+     eventChannel
+         .receiveBroadcastStream()
+         .listen(onSuccessCallBack, onError: onErrorCallBack);
+
+     return eventChannel;
+
+  }
+
 }
