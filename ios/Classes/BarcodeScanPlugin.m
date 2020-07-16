@@ -34,7 +34,7 @@
 }
 - (void)barcodeScannerViewController:(BarcodeScannerViewController *)controller didScanBarcodeWithResult:(NSString *)result {
     if (self.result) {
-        self.result(@{@"input_key":@(NO),@"history_key":@(NO),@"scanner_result_key":result});
+        self.result(result);
     }
 }
 
@@ -49,9 +49,9 @@
 - (void)barcodeScannerViewController:(BarcodeScannerViewController *)controller didClickBottomBtnWithTag:(NSInteger)tag{
     if (self.result) {
         if (tag == 0) {
-            self.result(@{@"input_key":@(YES),@"history_key":@(NO),@"scanner_result_key":@""});
+            self.result(@"input_key");
         }else if (tag == 1) {
-            self.result(@{@"input_key":@(YES),@"history_key":@(YES),@"scanner_result_key":@""});
+            self.result(@"history_key");
         }
         
     }
