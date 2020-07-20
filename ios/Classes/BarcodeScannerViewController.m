@@ -78,22 +78,20 @@
     if (self.scanner.isScanning) {
         [self.scanner stopScanning];
     }
+    __weak __typeof(self)weakSelf = self;
     [MTBBarcodeScanner requestCameraPermissionWithSuccess:^(BOOL success) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
         if (success) {
-            [self startScan];
+            [strongSelf startScan];
         } else {
-          [self.delegate barcodeScannerViewController:self didFailWithErrorCode:@"PERMISSION_NOT_GRANTED"];
-          [self dismissViewControllerAnimated:NO completion:nil];
+          [strongSelf.delegate barcodeScannerViewController:strongSelf didFailWithErrorCode:@"PERMISSION_NOT_GRANTED"];
+          [strongSelf dismissViewControllerAnimated:NO completion:nil];
         }
     }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-//    [self.scanner stopScanning];
-//    if ([self isFlashOn]) {
-//        [self toggleFlash:NO];
-//    }
     self.navigationController.navigationBarHidden = NO;
 }
 
@@ -104,9 +102,6 @@
     self.tipLab.text = @"将条形码放入框中，即可自动扫描";
     NSArray *dataArr = [NSArray new];
     switch (self.scanBottomBtnType) {
-        case 0:
-            dataArr = @[@{@"icon":@"scan_write",@"title":@"手动输入"},@{@"icon":@"scan_history",@"title":@"查询历史"}];
-            break;
         case 1:
             dataArr = @[@{@"icon":@"scan_write",@"title":@"手动输入"}];
             break;
@@ -164,12 +159,14 @@
 
 - (void)startScan {
     NSError *error;
+    __weak __typeof(self)weakSelf = self;
     [self.scanner startScanningWithResultBlock:^(NSArray<AVMetadataMachineReadableCodeObject *> *codes) {
-        [self.scanner stopScanning];
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf.scanner stopScanning];
          AVMetadataMachineReadableCodeObject *code = codes.firstObject;
         if (code) {
-            [self.delegate barcodeScannerViewController:self didScanBarcodeWithResult:code.stringValue];
-            [self dismissViewControllerAnimated:NO completion:nil];
+            [strongSelf.delegate barcodeScannerViewController:strongSelf didScanBarcodeWithResult:code.stringValue];
+            [strongSelf dismissViewControllerAnimated:NO completion:nil];
         }
     } error:&error];
 }
@@ -177,26 +174,6 @@
 - (void)cancel {
     [self.delegate barcodeScannerViewController:self didFailWithErrorCode:@"USER_CANCELED"];
     [self dismissViewControllerAnimated:true completion:nil];
-}
-
-- (void)updateFlashButton {
-    if (!self.hasTorch) {
-        return;
-    }
-//    if (self.isFlashOn) {
-//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭闪光灯"
-//                                                                                  style:UIBarButtonItemStylePlain
-//                                                                                 target:self action:@selector(toggle)];
-//    } else {
-//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"开启闪光灯"
-//                                                                                  style:UIBarButtonItemStylePlain
-//                                                                                 target:self action:@selector(toggle)];
-//    }
-}
-
-- (void)toggle {
-    [self toggleFlash:!self.isFlashOn];
-    [self updateFlashButton];
 }
 
 - (BOOL)isFlashOn {
