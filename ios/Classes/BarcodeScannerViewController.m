@@ -223,6 +223,8 @@
     if (!_backBtn) {
         _backBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
         [_backBtn setImage:[UIImage imageNamed:@"icon-back"] forState:(UIControlStateNormal)];
+        [_backBtn.imageView setContentMode:(UIViewContentModeScaleAspectFit)];
+        [_backBtn setImageEdgeInsets:UIEdgeInsetsMake(11.5, 0, 11.5, 0)];
         [_backBtn addTarget:self action:@selector(backBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
     }
     return _backBtn;
