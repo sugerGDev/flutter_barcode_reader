@@ -40,9 +40,7 @@
 
 - (void)barcodeScannerViewController:(BarcodeScannerViewController *)controller didFailWithErrorCode:(NSString *)errorCode {
     if (self.result){
-        self.result([FlutterError errorWithCode:errorCode
-                                        message:nil
-                                        details:nil]);
+        self.result(errorCode);
     }
 }
 
@@ -53,7 +51,6 @@
         }else if (tag == 1) {
             self.result(@"history_key");
         }
-        
     }
 }
 @end
