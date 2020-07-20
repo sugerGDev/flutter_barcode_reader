@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignStart="@id/ivScanBox"
+        android:layout_alignLeft="@id/ivScanBox"
+        android:layout_alignTop="@id/ivScanBox"
+        android:layout_alignEnd="@id/ivScanBox"
+        android:layout_alignRight="@id/ivScanBox"
+        android:layout_alignBottom="@id/ivScanBox"
+        android:background="#33ffffff" />
+
+    <ImageView
+        android:id="@+id/ivScanBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/scan_box" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ivScanBox"
+        android:background="#99000000" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/ivScanBox"
+        android:layout_alignBottom="@id/ivScanBox"
+        android:layout_toLeftOf="@id/ivScanBox"
+        android:background="#99000000" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/ivScanBox"
+        android:layout_alignBottom="@id/ivScanBox"
+        android:layout_toRightOf="@id/ivScanBox"
+        android:background="#99000000" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ivScanBox"
+        android:background="#99000000" />
+
+    <FrameLayout
+        android:id="@+id/flBottom"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="70dp">
+
+        <TextView
+            android:id="@+id/tvInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/scan_write"
+            android:text="手动输入"
+            android:textColor="#ffffff"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/tvHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:drawableTop="@drawable/scan_history"
+            android:text="查看历史"
+            android:textColor="#ffffff"
+            android:textSize="13dp" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvFlashlight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ivScanBox"
+        android:layout_centerHorizontal="true"
+        android:drawableTop="@drawable/select_flashlight"
+        android:drawablePadding="5.5dp"
+        android:padding="10dp"
+        android:text="轻触照亮"
+        android:textColor="@color/select_flashlight"
+        android:textSize="11dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="将条形码放入框中，即可自动扫描"
+        android:textColor="#cccccc"
+        android:textSize="13dp"
+        android:layout_below="@id/ivScanBox"
+        android:layout_marginTop="12dp"
+        android:layout_centerHorizontal="true"/>
+
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:src="@drawable/nav_back"
+        android:tint="#ffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="扫一扫"
+        android:textColor="#ffffff"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+</RelativeLayout>

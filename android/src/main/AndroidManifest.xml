@@ -5,5 +5,6 @@
 
   <application>
     <activity android:name="de.mintware.barcode_scan.BarcodeScannerActivity" />
+    <activity android:name="de.mintware.barcode_scan.StorageScannerActivity" />
   </application>
 </manifest>
