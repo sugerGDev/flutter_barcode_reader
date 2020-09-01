@@ -1,5 +1,5 @@
 #import "BarcodeScanPlugin.h"
-#import "BarcodeScannerViewController.h"
+#import "ZFScanViewController.h"
 
 @implementation BarcodeScanPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -20,15 +20,18 @@
 }
 
 - (void)showBarcodeViewWithCall:(FlutterMethodCall *)call {
-    BarcodeScannerViewController *scannerViewController = [[BarcodeScannerViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:scannerViewController];
-    if (@available(iOS 13.0, *)) {
-        [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
-    }
-    scannerViewController.delegate = self;
-    if ([call.arguments isKindOfClass:[NSDictionary class]] && call.arguments[@"button_key"]) {
-        scannerViewController.scanBottomBtnType = [call.arguments[@"button_key"] integerValue];
-    }
+    ZFScanViewController *scannerViewController = [[ZFScanViewController alloc] init];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:scannerViewController];
+        if (@available(iOS 13.0, *)) {
+            [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+        }
+  /*
+  
+     scannerViewController.delegate = self;
+     if ([call.arguments isKindOfClass:[NSDictionary class]] && call.arguments[@"button_key"]) {
+         scannerViewController.scanBottomBtnType = [call.arguments[@"button_key"] integerValue];
+     }
+   */
     
     [self.hostViewController presentViewController:navigationController animated:NO completion:nil];
 }

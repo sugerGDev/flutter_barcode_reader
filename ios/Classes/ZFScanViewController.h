@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ScanProtocol.h"
-#import <ZJScrollViewModule.h>
+
 /**
  扫描接口基础类
  */
-@interface ZFScanViewController :QMUICommonViewController<ScanProtocol,ZJScrollPageViewChildVcDelegate>
+@interface ZFScanViewController :UIViewController
 
 
 @end
