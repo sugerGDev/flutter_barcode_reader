@@ -45,6 +45,7 @@
         if (self.result){
             self.result(value);
         }
+        [self.hostViewController dismissViewControllerAnimated:NO completion:NULL];
     };
     
     scannerViewController.customTapBackAction = ^{
