@@ -18,7 +18,6 @@
      *  扫描透明框比例
      */
     CGFloat ZFScanRatio ;
-    NSString *_bundleName;
 }
 
 @property (nonatomic, strong) UIImageView * scanLineImg;
@@ -42,9 +41,7 @@
 @end
 
 @implementation ZFMaskView
-@synthesize bundleName = _bundleName;
 
-  
 - (void)commonInit{
     _isFirstTransition = YES;
 }
@@ -52,7 +49,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        _bundleName = @"ScanKit.bundle";
+      
         ZFScanRatio = 0.7f;
         [self commonInit];
         [self addUI];
@@ -82,10 +79,10 @@
     [self addSubview:self.hintLabel];
     
     //边框
-    UIImage * topLeft = [UIImage loadBundleImageWithName:@"scan_box_QR1" fromBlundeName:_bundleName];
-    UIImage * topRight = [UIImage loadBundleImageWithName:@"scan_box_QR2" fromBlundeName:_bundleName];
-    UIImage * bottomLeft = [UIImage loadBundleImageWithName:@"scan_box_QR3" fromBlundeName:_bundleName];
-    UIImage * bottomRight = [UIImage loadBundleImageWithName:@"scan_box_QR4" fromBlundeName:_bundleName];
+    UIImage * topLeft = [UIImage imageNamed:@"scan_box_QR1"];
+    UIImage * topRight = [UIImage imageNamed:@"scan_box_QR2"];
+    UIImage * bottomLeft = [UIImage imageNamed:@"scan_box_QR3"];
+    UIImage * bottomRight = [UIImage imageNamed:@"scan_box_QR4"];
     
     //左上
     self.topLeftImg = [[UIImageView alloc] init];
@@ -108,7 +105,7 @@
     [self addSubview:self.bottomRightImg];
     
     //扫描线
-    UIImage * scanLine = [UIImage loadBundleImageWithName:@"QRCodeScanLine" fromBlundeName:_bundleName];
+    UIImage * scanLine = [UIImage imageNamed:@"QRCodeScanLine"];
     self.scanLineImg = [[UIImageView alloc] init];
     self.scanLineImg.image = scanLine;
     self.scanLineImg.contentMode = UIViewContentModeScaleAspectFit;

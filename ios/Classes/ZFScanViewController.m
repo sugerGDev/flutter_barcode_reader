@@ -171,7 +171,7 @@
     
     // 没有授权返回按钮
     if (!self.authorityBackButton) {
-        UIImage * img = [UIImage loadBundleImageWithName:@"nav_back_02" fromBlundeName:self.maskView.bundleName];
+        UIImage * img = [UIImage imageNamed:@"nav_back_02"];
         self.authorityBackButton = [SJUIKit buttonWithImage:img];
         [self.view addSubview:self.authorityBackButton];
         
@@ -240,7 +240,7 @@
     
     // Nav-Back
     {
-        img = [UIImage loadBundleImageWithName:@"nav_back_02" fromBlundeName:self.maskView.bundleName];
+        img = [UIImage imageNamed:@"nav_back_02"];
         self.navBackButton = [SJUIKit buttonWithImage:img];
         [self.view addSubview:self.navBackButton];
         
@@ -302,7 +302,7 @@
     self.flashlight.spacingBetweenImageAndTitle = 5.f;
     
     
-    img = [UIImage loadBundleImageWithName:@"Flashlight_N" fromBlundeName:self.maskView.bundleName];
+    img = [UIImage  imageNamed:@"Flashlight_N"];
     [self.flashlight setImage:img forState:UIControlStateNormal];
     [self.flashlight addTarget:self action:@selector(flashlightAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.maskView addSubview:self.flashlight];
@@ -531,7 +531,7 @@
 - (void)flashlightAction:(MMMButton *)sender{
     sender.selected = !sender.selected;
     if (sender.selected) {
-        UIImage *img = [[UIImage loadBundleImageWithName:@"Flashlight_N" fromBlundeName:self.maskView.bundleName] qmui_imageWithTintColor:self.themeColor];
+        UIImage *img = [[UIImage imageNamed:@"Flashlight_N"] qmui_imageWithTintColor:self.themeColor];
         [sender setImage:img forState:UIControlStateSelected];
         sender.btnTitleColor = self.themeColor;
         
@@ -556,7 +556,7 @@
 
 
 - (void)_colseFlashlight:(MMMButton *)sender {
-    UIImage *img = [UIImage loadBundleImageWithName:@"Flashlight_N" fromBlundeName:self.maskView.bundleName];
+    UIImage *img = [UIImage imageNamed:@"Flashlight_N"];
     [sender setImage:img forState:UIControlStateSelected];
     sender.btnTitleColor = UIColor.whiteColor;
     
