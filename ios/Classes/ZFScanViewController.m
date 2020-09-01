@@ -9,7 +9,6 @@
 #import "ZFScanViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <ImageIO/ImageIO.h>
-#import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 #import "QMUIKit.h"
 #import "ZFMaskView.h"
 #import "MMMButton.h"
@@ -106,19 +105,24 @@
     [self stopScanAction];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self resueScanAction];
-}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.maskView addAnimation];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self resueScanAction];
+    self.navigationController.navigationBarHidden = YES;
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.fd_prefersNavigationBarHidden = YES;
     self.view.backgroundColor = UIColor.darkTextColor;
     [self loadUI];
     self.needShowNavigationBar = YES;
