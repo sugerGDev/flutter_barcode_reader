@@ -17,5 +17,5 @@ A new flutter plugin project.
   s.dependency 'Flutter'
   s.dependency 'FDFullscreenPopGesture'
   s.ios.deployment_target = '8.0'
-  s.resources = ['Classes/*.bundle']
+  s.resources = ['Classes/*.png']
 end
