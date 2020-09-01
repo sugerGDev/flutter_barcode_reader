@@ -10,8 +10,14 @@
 
 #import "UIImage+Untils.h"
 
+
+
 @interface ZFMaskView : UIView
 
+/**
+ 当前资源名字
+ */
+@property(nonatomic, strong,readonly) NSString *bundleName;
 /**
  主题颜色
  */
@@ -38,3 +44,6 @@
  */
 - (void)addAnimation;
 @end
+
+
+

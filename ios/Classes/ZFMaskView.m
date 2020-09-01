@@ -7,8 +7,10 @@
 //
 
 #import "ZFMaskView.h"
-#import "ScanKit.h"
-#import <QMUIKit/QMUIKit.h>
+#import "MMMButton.h"
+#import "MMMCommonDefines.h"
+
+
 
 @interface ZFMaskView(){
     
@@ -16,6 +18,7 @@
      *  扫描透明框比例
      */
     CGFloat ZFScanRatio ;
+    NSString *_bundleName;
 }
 
 @property (nonatomic, strong) UIImageView * scanLineImg;
@@ -39,7 +42,9 @@
 @end
 
 @implementation ZFMaskView
+@synthesize bundleName = _bundleName;
 
+  
 - (void)commonInit{
     _isFirstTransition = YES;
 }
@@ -47,7 +52,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        
+        _bundleName = @"ScanKit.bundle";
         ZFScanRatio = 0.7f;
         [self commonInit];
         [self addUI];
@@ -70,17 +75,17 @@
     //提示框
     self.hintLabel = [[UILabel alloc] init];
     self.hintLabel.text = @"将条形码放入框中，即可自动扫描";
-    self.hintLabel.textColor = UIColor.tCColor;
+    self.hintLabel.textColor = UIColorHex(cccccc);
     self.hintLabel.numberOfLines = 0;
-    self.hintLabel.font = UIFontMake(13.f);
+    self.hintLabel.font = [UIFont systemFontOfSize:13.f];
     self.hintLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.hintLabel];
     
     //边框
-    UIImage * topLeft = [UIImage loadBundleImageWithName:@"scan_box_QR1" fromBlundeName:Bundle_ScanKit];
-    UIImage * topRight = [UIImage loadBundleImageWithName:@"scan_box_QR2" fromBlundeName:Bundle_ScanKit];
-    UIImage * bottomLeft = [UIImage loadBundleImageWithName:@"scan_box_QR3" fromBlundeName:Bundle_ScanKit];
-    UIImage * bottomRight = [UIImage loadBundleImageWithName:@"scan_box_QR4" fromBlundeName:Bundle_ScanKit];
+    UIImage * topLeft = [UIImage loadBundleImageWithName:@"scan_box_QR1" fromBlundeName:_bundleName];
+    UIImage * topRight = [UIImage loadBundleImageWithName:@"scan_box_QR2" fromBlundeName:_bundleName];
+    UIImage * bottomLeft = [UIImage loadBundleImageWithName:@"scan_box_QR3" fromBlundeName:_bundleName];
+    UIImage * bottomRight = [UIImage loadBundleImageWithName:@"scan_box_QR4" fromBlundeName:_bundleName];
     
     //左上
     self.topLeftImg = [[UIImageView alloc] init];
@@ -103,7 +108,7 @@
     [self addSubview:self.bottomRightImg];
     
     //扫描线
-    UIImage * scanLine = [UIImage loadBundleImageWithName:@"QRCodeScanLine" fromBlundeName:Bundle_ScanKit];
+    UIImage * scanLine = [UIImage loadBundleImageWithName:@"QRCodeScanLine" fromBlundeName:_bundleName];
     self.scanLineImg = [[UIImageView alloc] init];
     self.scanLineImg.image = scanLine;
     self.scanLineImg.contentMode = UIViewContentModeScaleAspectFit;
@@ -148,7 +153,7 @@
         self.hintLabel.frame = CGRectMake(0, 0, self.frame.size.width * ZFScanRatio, 60.f);
         self.hintLabel.center = CGPointMake(self.maskView.center.x, self.bottomRightImg.bottom + 30.f * ZFScanRatio);
         
-        self.scanRect = CGRectMake( flat(self.topLeftImg.left), flat(self.topLeftImg.top), flat(self.topRightImg.right - self.topLeftImg.left),flat(self.bottomRightImg.bottom - self.topRightImg.top));
+        self.scanRect = CGRectMake( m_flat(self.topLeftImg.left), m_flat(self.topLeftImg.top), m_flat(self.topRightImg.right - self.topLeftImg.left),m_flat(self.bottomRightImg.bottom - self.topRightImg.top));
         
         //        UIView *scanView = [UIView createLineWithColor:UIColor.tRedColor];
         //        scanView.frame = self.scanRect;
@@ -243,11 +248,13 @@
 
 - (void)setThemeColor:(UIColor *)themeColor {
     _themeColor = themeColor;
+   /*
     self.scanLineImg.image =  [self.scanLineImg.image qmui_imageWithTintColor:themeColor];
-    self.topLeftImg.image = [self.topLeftImg.image qmui_imageWithTintColor:themeColor];
-    self.topRightImg.image = [self.topRightImg.image qmui_imageWithTintColor:themeColor];
-    self.bottomLeftImg.image = [self.bottomLeftImg.image qmui_imageWithTintColor:themeColor];
-    self.bottomRightImg.image = [self.bottomRightImg.image qmui_imageWithTintColor:themeColor];
+       self.topLeftImg.image = [self.topLeftImg.image qmui_imageWithTintColor:themeColor];
+       self.topRightImg.image = [self.topRightImg.image qmui_imageWithTintColor:themeColor];
+       self.bottomLeftImg.image = [self.bottomLeftImg.image qmui_imageWithTintColor:themeColor];
+       self.bottomRightImg.image = [self.bottomRightImg.image qmui_imageWithTintColor:themeColor];
+    */
 }
 /**
  *  遮罩层ShapeLayer

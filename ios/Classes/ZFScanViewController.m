@@ -10,14 +10,15 @@
 #import <AVFoundation/AVFoundation.h>
 #import <ImageIO/ImageIO.h>
 #import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
-
+#import "QMUIKit.h"
 #import "ZFMaskView.h"
-#import "ScanKit.h"
+#import "MMMButton.h"
+#import "SJUIKit.h"
+#import "UIButton+ClickRange.h"
 
 #define SCAN_WIDTH (self.view.width)
 #define SCAN_HEIGHT (self.view.height)
 
-@AppLordService(ScanProtocol, ZFScanViewController)
 @interface ZFScanViewController ()<AVCaptureMetadataOutputObjectsDelegate>
 
 /** 返回按钮 */
@@ -170,7 +171,7 @@
     
     // 没有授权返回按钮
     if (!self.authorityBackButton) {
-        UIImage * img = [UIImage loadBundleImageWithName:@"nav_back_02" fromBlundeName:Bundle_ScanKit];
+        UIImage * img = [UIImage loadBundleImageWithName:@"nav_back_02" fromBlundeName:self.maskView.bundleName];
         self.authorityBackButton = [SJUIKit buttonWithImage:img];
         [self.view addSubview:self.authorityBackButton];
         
@@ -200,8 +201,7 @@
         [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
         
     } else {
-        // Fallback on earlier versions
-        [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
+        [UIApplication.sharedApplication openURL:url];
     }
 }
 /**
@@ -240,7 +240,7 @@
     
     // Nav-Back
     {
-        img = [UIImage loadBundleImageWithName:@"nav_back_02" fromBlundeName:Bundle_ScanKit];
+        img = [UIImage loadBundleImageWithName:@"nav_back_02" fromBlundeName:self.maskView.bundleName];
         self.navBackButton = [SJUIKit buttonWithImage:img];
         [self.view addSubview:self.navBackButton];
         
@@ -302,7 +302,7 @@
     self.flashlight.spacingBetweenImageAndTitle = 5.f;
     
     
-    img = [UIImage loadBundleImageWithName:@"Flashlight_N" fromBlundeName:Bundle_ScanKit];
+    img = [UIImage loadBundleImageWithName:@"Flashlight_N" fromBlundeName:self.maskView.bundleName];
     [self.flashlight setImage:img forState:UIControlStateNormal];
     [self.flashlight addTarget:self action:@selector(flashlightAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.maskView addSubview:self.flashlight];
@@ -419,7 +419,7 @@
 
 - (UIColor *)themeColor {
     if (!_themeColor) {
-        _themeColor = UIColor.mainColor;
+        _themeColor = UIColorHex(10BDC9);
     }
     return _themeColor;
 }
@@ -531,7 +531,7 @@
 - (void)flashlightAction:(MMMButton *)sender{
     sender.selected = !sender.selected;
     if (sender.selected) {
-        UIImage *img = [[UIImage loadBundleImageWithName:@"Flashlight_N" fromBlundeName:Bundle_ScanKit] qmui_imageWithTintColor:self.themeColor];
+        UIImage *img = [[UIImage loadBundleImageWithName:@"Flashlight_N" fromBlundeName:self.maskView.bundleName] qmui_imageWithTintColor:self.themeColor];
         [sender setImage:img forState:UIControlStateSelected];
         sender.btnTitleColor = self.themeColor;
         
@@ -556,7 +556,7 @@
 
 
 - (void)_colseFlashlight:(MMMButton *)sender {
-    UIImage *img = [UIImage loadBundleImageWithName:@"Flashlight_N" fromBlundeName:Bundle_ScanKit];
+    UIImage *img = [UIImage loadBundleImageWithName:@"Flashlight_N" fromBlundeName:self.maskView.bundleName];
     [sender setImage:img forState:UIControlStateSelected];
     sender.btnTitleColor = UIColor.whiteColor;
     
