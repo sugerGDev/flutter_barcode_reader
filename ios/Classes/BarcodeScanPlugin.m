@@ -63,7 +63,7 @@
         additionView.imagePosition = MMMButtonImagePositionTop;
         additionView.spacingBetweenImageAndTitle = 10.f;
         [additionView sizeToFit];
-        [additionView target:self action:@selector(doInputAction:)];
+        [additionView addTarget:self action:@selector(doInputAction:) forControlEvents:UIControlEventTouchUpInside];
         additionView.centerX = MMM_DEVICE_WIDTH * .5f;
         additionView;
     }),
@@ -90,6 +90,7 @@
     if (self.result) {
           self.result(@"input_key");
        }
+     [self.hostViewController dismissViewControllerAnimated:NO completion:NULL];
 }
 
 @end
