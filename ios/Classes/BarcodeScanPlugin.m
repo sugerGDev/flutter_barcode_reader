@@ -1,5 +1,10 @@
 #import "BarcodeScanPlugin.h"
 #import "ZFScanViewController.h"
+#import "YYKit.h"
+#import "MMMButton.h"
+#import "SJUIKit.h"
+#import "MMMUIHelper.h"
+#import "UIButton+ClickRange.h"
 
 @implementation BarcodeScanPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -32,28 +37,58 @@
          scannerViewController.scanBottomBtnType = [call.arguments[@"button_key"] integerValue];
      }
    */
+    @weakify(self);
+    
+    
+    scannerViewController.returnScanBarCodeValue = ^(NSString * _Nonnull value) {
+        @strongify(self);
+        if (self.result){
+            self.result(value);
+        }
+    };
+    
+    scannerViewController.customTapBackAction = ^{
+        @strongify(self);
+        [self.hostViewController dismissViewControllerAnimated:NO completion:NULL];
+    };
+    
+    
+    scannerViewController.additions = @[
+    
+    ({
+        MMMButton* additionView = nil;
+        additionView = [SJUIKit buttonWithBackgroundColor:UIColor.clearColor titleColor:UIColor.whiteColor title:@"手动输入" fontSize:13.f];
+        additionView.btnImage = [UIImage imageNamed:@"scan_write"];
+        additionView.imagePosition = MMMButtonImagePositionTop;
+        additionView.spacingBetweenImageAndTitle = 10.f;
+        [additionView sizeToFit];
+        [additionView target:self action:@selector(doInputAction:)];
+        additionView.centerX = MMM_DEVICE_WIDTH * .5f;
+        additionView;
+    }),
+    ].mutableCopy;
+    
     
     [self.hostViewController presentViewController:navigationController animated:NO completion:nil];
 }
-- (void)barcodeScannerViewController:(BarcodeScannerViewController *)controller didScanBarcodeWithResult:(NSString *)result {
+
+
+/*
+ - (void)barcodeScannerViewController:(BarcodeScannerViewController *)controller didClickBottomBtnWithTag:(NSInteger)tag{
+     if (self.result) {
+         if (tag == 0) {
+             self.result(@"input_key");
+         }else if (tag == 1) {
+             self.result(@"history_key");
+         }
+     }
+ }
+
+ */
+- (void)doInputAction:(id)aSender {
     if (self.result) {
-        self.result(result);
-    }
+          self.result(@"input_key");
+       }
 }
 
-- (void)barcodeScannerViewController:(BarcodeScannerViewController *)controller didFailWithErrorCode:(NSString *)errorCode {
-    if (self.result){
-        self.result(errorCode);
-    }
-}
-
-- (void)barcodeScannerViewController:(BarcodeScannerViewController *)controller didClickBottomBtnWithTag:(NSInteger)tag{
-    if (self.result) {
-        if (tag == 0) {
-            self.result(@"input_key");
-        }else if (tag == 1) {
-            self.result(@"history_key");
-        }
-    }
-}
 @end

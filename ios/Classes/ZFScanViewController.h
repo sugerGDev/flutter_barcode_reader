@@ -56,6 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
  暂停扫描
  */
 - (void)stopScanAction;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
