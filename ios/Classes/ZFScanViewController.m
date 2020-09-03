@@ -188,6 +188,10 @@
         self.authorityBackButton.qmui_tapBlock = ^(__kindof UIControl *sender) {
             @strongify(self);
             [self.navigationController popViewControllerAnimated:YES];
+            
+            if (self.customTapBackAction) {
+                self.customTapBackAction();
+            }
         };
         
     }
