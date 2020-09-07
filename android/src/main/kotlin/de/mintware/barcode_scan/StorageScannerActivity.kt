@@ -10,16 +10,18 @@ import android.view.*
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import de.mintware.barcode_scan.scanner.StorageResult
 import de.mintware.barcode_scan.scanner.StorageScannerView
 import de.mintware.barcodescan.R
+import java.lang.RuntimeException
 
 
 class StorageScannerActivity : Activity(), StorageScannerView.ResultHandler {
 
-    lateinit var scannerView: StorageScannerView
+    var scannerView: StorageScannerView? = null
     private var operationType: Int = 0
 
     companion object {
@@ -34,9 +36,9 @@ class StorageScannerActivity : Activity(), StorageScannerView.ResultHandler {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         scannerView = StorageScannerView(this)
-        scannerView.setAutoFocus(true)
+        scannerView?.setAutoFocus(true)
         // this paramter will make your HUAWEI phone works great!
-        scannerView.setAspectTolerance(0.5f)
+        scannerView?.setAspectTolerance(0.5f)
         setContentView(scannerView)
     }
 
@@ -56,7 +58,7 @@ class StorageScannerActivity : Activity(), StorageScannerView.ResultHandler {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == TOGGLE_FLASH) {
-            scannerView.flash = !scannerView.flash
+            scannerView?.flash = !(scannerView?.flash ?: false)
             this.invalidateOptionsMenu()
             return true
         }
@@ -65,16 +67,16 @@ class StorageScannerActivity : Activity(), StorageScannerView.ResultHandler {
 
     override fun onResume() {
         super.onResume()
-        scannerView.setResultHandler(this)
+        scannerView?.setResultHandler(this)
         // start camera immediately if permission is already given
         if (!requestCameraAccessIfNecessary()) {
-            scannerView.startCamera()
+            scannerView?.startCamera()
         }
     }
 
     override fun onPause() {
         super.onPause()
-        scannerView.stopCamera()
+        scannerView?.stopCamera()
     }
 
     override fun handleResult(result: StorageResult?) {
@@ -100,14 +102,17 @@ class StorageScannerActivity : Activity(), StorageScannerView.ResultHandler {
         val tvInput = frontView.findViewById<View>(R.id.tvInput)
         val tvHistory = frontView.findViewById<View>(R.id.tvHistory)
         val flBottom = frontView.findViewById<FrameLayout>(R.id.flBottom)
-        if (scannerView.flash) {
-            tvFlashlight.isSelected = true
-            tvFlashlight.text = "轻触关灯"
-        } else {
-            tvFlashlight.isSelected = false
-            tvFlashlight.text = "轻触照亮"
-        }
+        try {
+            if (scannerView?.flash == true) {
+                tvFlashlight.isSelected = true
+                tvFlashlight.text = "轻触关灯"
+            } else {
+                tvFlashlight.isSelected = false
+                tvFlashlight.text = "轻触照亮"
+            }
+        } catch (e: RuntimeException) {
 
+        }
         when (operationType) {
             BarcodeScanPlugin.OPERATION_TYPE_NONE -> {
                 flBottom.visibility = View.GONE
@@ -146,8 +151,8 @@ class StorageScannerActivity : Activity(), StorageScannerView.ResultHandler {
     }
 
     fun clickFlashlight(tvFlashlight: TextView) {
-        scannerView.flash = !scannerView.flash
-        if (scannerView.flash) {
+        scannerView?.flash = !(scannerView?.flash ?: false)
+        if (scannerView?.flash == true) {
             tvFlashlight.isSelected = true
             tvFlashlight.text = "轻触关灯"
         } else {
@@ -179,7 +184,7 @@ class StorageScannerActivity : Activity(), StorageScannerView.ResultHandler {
         when (requestCode) {
             REQUEST_TAKE_PHOTO_CAMERA_PERMISSION -> {
                 if (PermissionUtil.verifyPermissions(grantResults)) {
-                    scannerView.startCamera()
+                    scannerView?.startCamera()
                 } else {
                     finishWithError("PERMISSION_NOT_GRANTED")
                 }
