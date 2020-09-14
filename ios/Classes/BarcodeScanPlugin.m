@@ -70,7 +70,7 @@
     ].mutableCopy;
     
     
-    [self.hostViewController presentViewController:navigationController animated:NO completion:nil];
+    [self.hostViewController presentViewController:navigationController animated:YES completion:nil];
 }
 
 
