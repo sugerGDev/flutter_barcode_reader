@@ -2,6 +2,7 @@ package de.mintware.barcode_scan
 
 import android.app.Activity
 import android.content.Intent
+import de.mintware.barcode_scan.activity.ScanActivity
 import de.mintware.barcode_scan.scanner.StorageResult
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -52,7 +53,7 @@ class BarcodeScanPlugin() : MethodCallHandler, PluginRegistry.ActivityResultList
 
     private fun showBarcodeView(operationType: Int?) {
         activity?.let {
-            val intent = Intent(it, StorageScannerActivity::class.java)
+            val intent = Intent(it, ScanActivity::class.java)
             intent.putExtra("operationType", operationType)
             it.startActivityForResult(intent, 100)
         }

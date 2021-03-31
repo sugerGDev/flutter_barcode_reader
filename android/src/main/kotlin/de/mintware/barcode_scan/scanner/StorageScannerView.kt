@@ -162,8 +162,15 @@ class StorageScannerView : BarcodeScannerView {
         val rect =
                 if (storageOperationView != null) {
                     val view = storageOperationView?.findViewById<ImageView>(R.id.ivScanBox)
+                    Log.e("buildLuminanceSource", "===================")
+                    Log.e("buildLuminanceSource", view?.left?.toString())
+                    Log.e("buildLuminanceSource", view?.top?.toString())
+                    Log.e("buildLuminanceSource", view?.right?.toString())
+                    Log.e("buildLuminanceSource", view?.bottom?.toString())
+                    Log.e("buildLuminanceSource", "===================")
                     Rect(view?.left ?: 0, view?.top ?: 0, view?.right ?: 0, view?.bottom ?: 0)
                 } else {
+                    Log.e("buildLuminanceSource", "=========+++++==========")
                     Rect(135, 536, 945, 1143)
                 }
         // Go ahead and assume it's YUV rather than die.

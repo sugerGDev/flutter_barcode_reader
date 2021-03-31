@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">module_scan</string>
+    <string name="suplus_scan_tip">将条形码放入框中，即可自动扫描</string>
+    <string name="message_permission_always_failed">请允许我们在设置:\n\n%1$s</string>
+</resources>

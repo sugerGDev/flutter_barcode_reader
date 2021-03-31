@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/mmm_c10_s01_s00_r9001"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="温馨提示"
+        android:textColor="#333333"
+        android:textSize="18dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="20dp"
+        android:background="#999999" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="6dp"
+        android:text="无法开启摄像头，请检查APP是否有\n访问摄像头的权限，或重启\n设备后重试"
+        android:textColor="#333333"
+        android:textSize="15dp" />
+
+
+    <TextView
+        android:id="@+id/tvOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/mmm_c90_s11_s00_r9003"
+        android:gravity="center_horizontal"
+        android:paddingLeft="28dp"
+        android:paddingTop="12dp"
+        android:paddingRight="28dp"
+        android:paddingBottom="12dp"
+        android:text="知道了"
+        android:textColor="#ffffff"
+        android:textSize="16dp" />
+
+
+</LinearLayout>
