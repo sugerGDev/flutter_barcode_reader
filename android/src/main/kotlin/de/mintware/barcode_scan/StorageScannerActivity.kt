@@ -100,7 +100,6 @@ class StorageScannerActivity : Activity(), StorageScannerView.ResultHandler {
     fun initFrontView(frontView: ViewGroup) {
         val tvFlashlight = frontView.findViewById<TextView>(R.id.tvFlashlight)
         val tvInput = frontView.findViewById<View>(R.id.tvInput)
-        val tvHistory = frontView.findViewById<View>(R.id.tvHistory)
         val flBottom = frontView.findViewById<FrameLayout>(R.id.flBottom)
         try {
             if (scannerView?.flash == true) {
@@ -112,19 +111,6 @@ class StorageScannerActivity : Activity(), StorageScannerView.ResultHandler {
             }
         } catch (e: RuntimeException) {
 
-        }
-        when (operationType) {
-            BarcodeScanPlugin.OPERATION_TYPE_NONE -> {
-                flBottom.visibility = View.GONE
-            }
-            BarcodeScanPlugin.OPERATION_TYPE_HISTORY -> {
-                tvInput.visibility = View.GONE
-                flBottom.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-            }
-            BarcodeScanPlugin.OPERATION_TYPE_INPUT -> {
-                tvHistory.visibility = View.GONE
-                flBottom.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-            }
         }
 
         tvFlashlight.setOnClickListener {
@@ -142,12 +128,6 @@ class StorageScannerActivity : Activity(), StorageScannerView.ResultHandler {
             finish()
         }
 
-        tvHistory.setOnClickListener {
-            val intent = Intent()
-            intent.putExtra("SCAN_RESULT", StorageResult("", StorageResult.OPERATION_TYPE_HISTORY))
-            setResult(RESULT_OK, intent)
-            finish()
-        }
     }
 
     fun clickFlashlight(tvFlashlight: TextView) {

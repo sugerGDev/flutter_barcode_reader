@@ -66,18 +66,6 @@
             android:textColor="#ffffff"
             android:textSize="13dp" />
 
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/tvHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:drawableTop="@drawable/scan_history"
-            android:drawablePadding="10dp"
-            android:text="查看历史"
-            android:textColor="#ffffff"
-            android:textSize="13dp" />
-
     </LinearLayout>
 
 

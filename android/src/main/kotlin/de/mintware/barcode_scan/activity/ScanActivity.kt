@@ -43,14 +43,6 @@ class ScanActivity : AppCompatActivity() {
             window.statusBarColor = resources.getColor(R.color.color2)
         }
 
-//        if (null != intent) {
-//            from = intent.getIntExtra(SCAN_FORM_TYPE, -1)
-//        }
-
-//        if (from == CommonRepository.CONFIG_TYPE_STOREIN || from == CommonRepository.CONFIG_TYPE_QUALITY_CONTROL) {
-        tvHistory.visibility = View.VISIBLE
-//        }
-
         initCaptureFragment()
 
         initClick()
@@ -60,13 +52,6 @@ class ScanActivity : AppCompatActivity() {
         tvInput.setOnClickListener {
             val intent = Intent()
             intent.putExtra("SCAN_RESULT", StorageResult("", StorageResult.OPERATION_TYPE_INPUT))
-            setResult(RESULT_OK, intent)
-            finish()
-        }
-
-        tvHistory.setOnClickListener {
-            val intent = Intent()
-            intent.putExtra("SCAN_RESULT", StorageResult("", StorageResult.OPERATION_TYPE_HISTORY))
             setResult(RESULT_OK, intent)
             finish()
         }
